@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seminkas - Mis Productos</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+      body {
+        background-color: #f7f5f0;
+        font-family: 'Segoe UI', sans-serif;
+      }
+
+      .brand-header {
+        background-color: #4e2c0a; /* Marrón */
+        color: #fff;
+        padding: 1rem 0;
+      }
+
+      .brand-header h2 {
+        margin: 0;
+      }
+
+      .btn-seminkas {
+        background-color: #305f2b;
+        color: #fff;
+        border: none;
+      }
+
+      .btn-seminkas:hover {
+        background-color: #274f23;
+      }
+
+      .product-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      }
+
+      .product-card h5 {
+        color: #4e2c0a;
+      }
+
+      .product-actions a {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="brand-header text-center">
+      <h2>Seminkas - Productos del Vendedor</h2>
+    </header>
+
+    <div class="container my-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Mis productos</h4>
+        <a href="/seller/add" class="btn btn-seminkas">
+          <i class="bi bi-plus-circle"></i> Agregar producto
+        </a>
+      </div>
+
+      <!-- Lista de productos (renderizado con Embedded JS o puede ser HTML estático de prueba) -->
+      <% productos.forEach(producto => { %>
+  <a href="/product/<%= producto._id %>" class="text-decoration-none text-dark">
+    <div class="product-card row">
+      <div class="col-md-2">
+        <img src="<%= producto.imagenUrl || 'https://via.placeholder.com/100' %>" class="img-fluid rounded" alt="Imagen producto">
+      </div>
+      <div class="col-md-8">
+        <h5><%= producto.nombre %></h5>
+        <p class="mb-1 text-muted">Categoría: <%= producto.categoria %></p>
+        <p class="mb-0">Precio: S/ <%= producto.precio %></p>
+      </div>
+      <div class="col-md-2 text-end product-actions">
+        <a href="/seller/edit/<%= producto._id %>" class="btn btn-outline-primary btn-sm" onclick="event.stopPropagation();">
+          <i class="bi bi-pencil"></i>
+        </a>
+        <a href="/seller/delete/<%= producto._id %>" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">
+          <i class="bi bi-trash"></i>
+        </a>
+        <a href="/product/<%= producto._id %>" class="btn btn-outline-secondary btn-sm" onclick="event.stopPropagation();">
+          <i class="bi bi-eye"></i>
+        </a>
+      </div>
+    </div>
+  </a>
+<% }) %>
+
+    </div>
+  </div>
+</a>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

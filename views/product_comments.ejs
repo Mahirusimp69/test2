@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seminkas - Comentarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+      body { background-color: #f7f5f0; font-family: 'Segoe UI', sans-serif; }
+      .brand-header { background-color: #4e2c0a; color: #fff; padding: 1rem 0; }
+      .btn-seminkas { background-color: #305f2b; color: #fff; border: none; }
+      .btn-seminkas:hover { background-color: #274f23; }
+      .comment { background-color: #f3f3f3; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; }
+    </style>
+  </head>
+  <body>
+    <header class="brand-header text-center">
+      <h2>Seminkas - Comentarios de <%= producto.nombre %></h2>
+    </header>
+    <div class="container my-4">
+      <h4>Agregar comentario</h4>
+      <form action="/reviews/add" method="POST">
+        <input type="hidden" name="seedId" value="<%= producto._id %>">
+        <div class="mb-3">
+          <label for="comentario" class="form-label">Comentario</label>
+          <textarea class="form-control" id="comentario" name="comentario" rows="2" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="rating" class="form-label">Calificación</label>
+          <select class="form-select" id="rating" name="rating" required>
+            <option value="5">5 estrellas</option>
+            <option value="4">4 estrellas</option>
+            <option value="3">3 estrellas</option>
+            <option value="2">2 estrellas</option>
+            <option value="1">1 estrella</option>
+          </select>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-seminkas">Enviar comentario</button>
+        </div>
+      </form>
+      <hr>
+      <h4>Comentarios</h4>
+      <% if (comentarios.length === 0) { %>
+        <p class="text-muted">Este producto aún no tiene comentarios.</p>
+      <% } else { %>
+        <% comentarios.forEach(com => { %>
+          <div class="comment">
+            <strong><%= com.nombreUsuario %></strong> - <%= com.rating %> <i class="bi bi-star-fill text-warning"></i>
+            <p><%= com.comentario %></p>
+            <small><%= new Date(com.fechaReview).toLocaleDateString() %></small>
+          </div>
+        <% }) %>
+      <% } %>
+      <a href="/catalogo" class="btn btn-outline-secondary mt-3"><i class="bi bi-arrow-left"></i> Volver al catálogo</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

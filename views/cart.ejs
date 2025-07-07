@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seminkas - Carrito de Compras</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+      body { background-color: #f7f5f0; font-family: 'Segoe UI', sans-serif; }
+      .brand-header { background-color: #4e2c0a; color: #fff; padding: 1rem 0; }
+      .btn-seminkas { background-color: #305f2b; color: #fff; border: none; }
+      .btn-seminkas:hover { background-color: #274f23; }
+    </style>
+  </head>
+  <body>
+    <header class="brand-header text-center">
+      <h2>Seminkas - Carrito de Compras</h2>
+    </header>
+    <div class="container my-4">
+      <% if (carrito.items.length === 0) { %>
+        <p class="text-muted">Tu carrito está vacío.</p>
+      <% } else { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% carrito.items.forEach(item => { %>
+              <tr>
+                <td><%= item.nombre %></td>
+                <td>S/ <%= item.precio %></td>
+                <td><%= item.cantidad %></td>
+                <td>S/ <%= (item.precio * item.cantidad).toFixed(2) %></td>
+                <td>
+                  <a href="/cart/remove/<%= item.seedId %>" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Total: S/ <%= carrito.total %></h5>
+          <a href="/checkout" class="btn btn-seminkas"><i class="bi bi-credit-card"></i> Ir a pagar</a>
+        </div>
+      <% } %>
+      <a href="/catalogo" class="btn btn-outline-secondary mt-3"><i class="bi bi-arrow-left"></i> Seguir comprando</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

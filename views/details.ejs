@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seminkas - Detalles del Producto</title>
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background-color: #f7f5f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .brand-header {
+      background-color: #4e2c0a;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
+    .btn-seminkas {
+      background-color: #305f2b;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-seminkas:hover {
+      background-color: #274f23;
+    }
+
+    .product-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 40px;
+    }
+
+    .comment {
+      background-color: #f3f3f3;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .comment h6 {
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+    }
+
+    .comment small {
+      color: #777;
+    }
+
+    .product-title {
+      color: #4e2c0a;
+    }
+
+    .product-image {
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="brand-header text-center">
+    <h2>Seminkas - Detalles del Producto</h2>
+  </header>
+
+  <div class="container">
+    <div class="product-container">
+
+      <!-- Info del producto -->
+      <div class="row">
+        <div class="col-md-4 text-center mb-3 mb-md-0">
+          <img src="<%= producto.imagenUrl || 'https://via.placeholder.com/300' %>" class="img-fluid product-image" alt="Imagen del producto">
+        </div>
+
+        <div class="col-md-8">
+          <h3 class="product-title"><%= producto.nombre %></h3>
+          <p><strong>Categoría:</strong> <%= producto.categoria %></p>
+          <p><strong>Precio:</strong> S/ <%= producto.precio.toFixed(2) %></p>
+          <p><strong>Stock disponible:</strong> <%= producto.stock %></p>
+          <p><strong>Descripción:</strong></p>
+          <p><%= producto.descripcion %></p>
+
+          <div class="mt-4">
+            <a href="/seller/products" class="btn btn-outline-secondary me-2">
+              <i class="bi bi-arrow-left"></i> Volver
+            </a>
+            <a href="/seller/edit/<%= producto._id %>" class="btn btn-seminkas">
+              <i class="bi bi-pencil-square"></i> Editar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comentarios -->
+      <hr class="my-4">
+      <h5 class="product-title mb-3">Comentarios de usuarios</h5>
+
+      <% if (comentarios && comentarios.length === 0) { %>
+        <p class="text-muted">Este producto aún no tiene comentarios.</p>
+      <% } else { %>
+        <% comentarios.forEach(com => { %>
+          <div class="comment">
+            <h6><%= com.usuario %></h6>
+            <small><%= com.fecha %></small>
+            <p><%= com.texto %></p>
+          </div>
+        <% }) %>
+      <% } %>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
